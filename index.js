@@ -25,13 +25,28 @@ const run = async () => {
     try {
         await client.connect();
         await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+
+        const database = client.db('jestatex')
+        const jestatexProperty = database.collection('jestatexproperty')
+
+
+        app.post('/property', async (req, res) => {
+            const propertys = req.body
+            
+
+            const result = await jestatexProperty.insertOne(propertys);
+            res.send(result)
+        })
+
+
+
     }
     finally {
         // await client.close();
     }
 }
 
+run().catch(console.dir);
 
 app.get('/', (req, res) => {
     res.send('server is runing')
