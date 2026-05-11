@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const cors = require('cors')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT
 const uri = process.env.MONGODB_URI
 
@@ -40,6 +40,14 @@ const run = async () => {
 
         app.get('/property', async (req, res) => {
             const result = await jestatexProperty.find().toArray()
+            res.send(result)
+        })
+        app.get('/property/:id', async (req, res) => {
+            const id = req.params.id
+            const query = {
+                _id: new ObjectId(id)
+            }
+            const result = await jestatexProperty.findOne(query)
             res.send(result)
         })
 
