@@ -32,9 +32,14 @@ const run = async () => {
 
         app.post('/property', async (req, res) => {
             const propertys = req.body
-            
+
 
             const result = await jestatexProperty.insertOne(propertys);
+            res.send(result)
+        })
+
+        app.get('/property', async (req, res) => {
+            const result = await jestatexProperty.find().toArray()
             res.send(result)
         })
 
