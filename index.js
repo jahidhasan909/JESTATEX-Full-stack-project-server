@@ -51,6 +51,15 @@ const run = async () => {
             res.send(result)
         })
 
+        app.delete('/property/:id', async (req, res) => {
+            const id = req.params.id
+            const filter = {
+                _id: new ObjectId(id)
+            }
+            const result = await jestatexProperty.deleteOne(filter)
+            res.send(result)
+        })
+
 
 
     }
